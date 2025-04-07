@@ -5,6 +5,10 @@ import com.qianshe.ceremonyserverai.model.ChatCompletionRequest;
 import com.qianshe.ceremonyserverai.model.ChatCompletionResponse;
 import com.qianshe.ceremonyserverai.service.AiService;
 import lombok.Data;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.ollama.OllamaChatModel;
+import org.springframework.ai.ollama.api.OllamaModel;
+import org.springframework.ai.ollama.api.OllamaOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,9 +20,12 @@ public class AiController {
 
     private final AiService aiService;
 
+    private final OllamaChatModel chatModel;
+
     @Autowired
-    public AiController(AiService aiService) {
+    public AiController(AiService aiService, OllamaChatModel chatModel) {
         this.aiService = aiService;
+        this.chatModel = chatModel;
     }
 
     @PostMapping("/chat")

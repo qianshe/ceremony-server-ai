@@ -3,14 +3,13 @@ package com.qianshe.ceremonyserverai.service;
 import com.qianshe.ceremonyserverai.entity.ChatHistory;
 import com.qianshe.ceremonyserverai.model.*;
 import com.qianshe.ceremonyserverai.repository.ChatHistoryRepository;
-import org.springframework.ai.chat.ChatClient;
-import org.springframework.ai.chat.ChatResponse;
+
+import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.SystemMessage;
 import org.springframework.ai.chat.messages.UserMessage;
+import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.chat.prompt.SystemPromptTemplate;
-import org.springframework.ai.embedding.EmbeddingClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class AiService {
     private final McpService mcpService;
 
     @Autowired
-    public AiService(ChatClient chatClient, EmbeddingClient embeddingClient, 
+    public AiService(ChatClient chatClient, EmbeddingClient embeddingClient,
                      ChatHistoryRepository chatHistoryRepository, McpService mcpService) {
         this.chatClient = chatClient;
         this.embeddingClient = embeddingClient;
@@ -127,7 +126,7 @@ public class AiService {
             ChatResponse chatResponse = chatClient.call(new Prompt(aiMessages));
             responseContent = chatResponse.getResult().getOutput().getContent();
             
-            // 解析响应中的工具调用（这需要根据实际模型输出格式调整）
+            // 解析响应中的工具调用
             toolCalls = parseToolCalls(responseContent);
             
             // 如果有工具调用请求，执行这些工具

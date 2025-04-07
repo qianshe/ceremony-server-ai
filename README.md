@@ -9,6 +9,13 @@
 - MySQL数据库
 - Ollama（本地运行，需安装deepseek-r1:8b模型）
 
+## 技术栈
+
+- Spring Boot 3.2.4
+- Spring AI 1.0.0（正式版）
+- MySQL
+- Ollama模型服务
+
 ## 安装Ollama和模型
 
 1. 从[Ollama官网](https://ollama.ai/)下载并安装Ollama
@@ -48,6 +55,7 @@ ceremony-server-ai/
 │   │   │               │   ├── ChatCompletionRequest.java
 │   │   │               │   ├── ChatCompletionResponse.java
 │   │   │               │   ├── ChatMessage.java
+│   │   │               │   ├── EmbeddingClient.java
 │   │   │               │   ├── Tool.java
 │   │   │               │   ├── ToolCall.java
 │   │   │               │   └── ToolCallResult.java
