@@ -6,6 +6,9 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * methods as tools
+ */
 public class DateTimeTools {
 
     @Tool(description = "获取用户时区中的当前日期和时间")

@@ -4,6 +4,7 @@ import com.qianshe.tools.DateTimeTools;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.tool.ToolCallback;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Flux;
 
@@ -13,6 +14,8 @@ import reactor.core.publisher.Flux;
 public class AiController {
 
     final ChatClient chatClient;
+
+    final ToolCallback toolCallback;
 
     @GetMapping(value = "/ai/chat", produces = "text/event-stream;charset=utf-8")
     public String chat(@RequestParam("message") String message) {
@@ -33,7 +36,7 @@ public class AiController {
     }
 
     // deepseek-r1:8b does not support tools
-    // function call 也属于 tools 所以不支持
+    // Methods as Tools
     @GetMapping(value = "/ai/chat/tools", produces = "text/event-stream;charset=utf-8")
     public String chatTools(@RequestParam("message") String message) {
         return chatClient.prompt(message)
@@ -41,11 +44,18 @@ public class AiController {
                 .call().content();
     }
 
-    @Deprecated
+    // Functions as Tools
     @GetMapping(value = "/ai/chat/func", produces = "text/event-stream;charset=utf-8")
     public String chatFunc(@RequestParam("message") String message) {
         return chatClient.prompt(message)
-                .functions("getCurrentDateTime")
+                .tools(toolCallback)
+                .call().content();
+    }
+    // Functions as Tools
+    @GetMapping(value = "/ai/chat/func/bean", produces = "text/event-stream;charset=utf-8")
+    public String chatFuncBean(@RequestParam("message") String message) {
+        return chatClient.prompt(message)
+                .tools("currentWeather")
                 .call().content();
     }
 
