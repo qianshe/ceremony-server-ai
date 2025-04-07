@@ -14,6 +14,9 @@ public class ChatConfig {
 
     @Bean
     public ChatClient chatClient() {
-        return ChatClient.builder(model).build();
+        return ChatClient.builder(model)
+                // 设置系统消息
+                .defaultSystem("")
+                .build();
     }
 }
