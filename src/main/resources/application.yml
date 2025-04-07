@@ -29,6 +29,12 @@ spring:
           model: deepseek-r1:8b
     mcp:
       server:
-        name: stdio-mcp-server
-        version: 1.0.0
+        name: webflux-mcp-server
         type: SYNC
+#      本地服务需要打成jar包
+#        name: stdio-mcp-server
+#        stdio: true
+        version: 1.0.0
+#  main:
+#    banner-mode: off
+#    web-application-type: none
