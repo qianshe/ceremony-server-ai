@@ -16,6 +16,14 @@
 - MySQL
 - Ollama模型服务
 
+## 特性
+
+- 利用Spring AI自动配置简化了与Ollama模型的集成
+- 内置MCP（Model Context Protocol）工具调用能力
+- AI可以自动判断何时需要调用外部工具获取信息
+- 支持数据库存储对话历史
+- 可扩展的工具注册机制
+
 ## 安装Ollama和模型
 
 1. 从[Ollama官网](https://ollama.ai/)下载并安装Ollama
@@ -44,7 +52,6 @@ ceremony-server-ai/
 │   │   │       └── qianshe/
 │   │   │           └── ceremonyserverai/
 │   │   │               ├── config/
-│   │   │               │   ├── OllamaConfig.java
 │   │   │               │   └── RestTemplateConfig.java
 │   │   │               ├── controller/
 │   │   │               │   ├── AiController.java
@@ -55,7 +62,6 @@ ceremony-server-ai/
 │   │   │               │   ├── ChatCompletionRequest.java
 │   │   │               │   ├── ChatCompletionResponse.java
 │   │   │               │   ├── ChatMessage.java
-│   │   │               │   ├── EmbeddingClient.java
 │   │   │               │   ├── Tool.java
 │   │   │               │   ├── ToolCall.java
 │   │   │               │   └── ToolCallResult.java
@@ -69,6 +75,28 @@ ceremony-server-ai/
 │   │       └── application.yml
 ├── pom.xml
 └── README.md
+```
+
+## 配置说明
+
+项目使用Spring AI自动配置功能，主要配置信息在`application.yml`中：
+
+```yaml
+spring:
+  ai:
+    ollama:
+      base-url: http://localhost:11434
+      chat:
+        enabled: true
+        options:
+          model: deepseek-r1:8b
+          temperature: 0.7
+          top-p: 0.95
+          repeat-penalty: 1.1
+      embedding:
+        enabled: true
+        options:
+          model: deepseek-r1:8b
 ```
 
 ## 启动项目
@@ -165,6 +193,22 @@ mvn spring-boot:run
 2. **fetch_weather** - 获取指定城市的天气信息
 3. **search_web** - 在网络上搜索信息
 4. **get_current_time** - 获取当前时间，支持指定时区
+
+## 扩展工具
+
+可以通过McpService的registerTool方法注册新的工具：
+
+```java
+// 在自定义服务类中注入McpService
+@Autowired
+private McpService mcpService;
+
+// 注册自定义工具
+mcpService.registerTool("my_custom_tool", params -> {
+    // 实现工具逻辑
+    return result;
+});
+```
 
 ## 数据库
 
