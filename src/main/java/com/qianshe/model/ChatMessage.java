@@ -1,4 +1,4 @@
-package com.qianshe.ceremonyserverai.model;
+package com.qianshe.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
