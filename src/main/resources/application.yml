@@ -19,10 +19,16 @@ spring:
       base-url: http://localhost:11434
       chat:
         options:
-          model: deepseek-r1:8b
+#          model: deepseek-r1:8b
+          model: ishumilin/deepseek-r1-coder-tools:1.5b
           temperature: 0.7
           top-p: 0.95
           repeat-penalty: 1.1
       embedding:
         options:
           model: deepseek-r1:8b
+    mcp:
+      server:
+        name: stdio-mcp-server
+        version: 1.0.0
+        type: SYNC

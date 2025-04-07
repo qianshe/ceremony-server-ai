@@ -2,6 +2,7 @@ package com.qianshe.tools;
 
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * methods as tools
  */
+@Service
 public class DateTimeTools {
 
     @Tool(description = "获取用户时区中的当前日期和时间")

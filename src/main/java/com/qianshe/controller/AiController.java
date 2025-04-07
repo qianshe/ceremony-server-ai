@@ -17,7 +17,7 @@ public class AiController {
 
     final ToolCallback toolCallback;
 
-    @GetMapping(value = "/ai/chat", produces = "text/event-stream;charset=utf-8")
+    @GetMapping(value = "/ai/chat")
     public String chat(@RequestParam("message") String message) {
         return chatClient.prompt()
                 .user(message)
@@ -29,15 +29,15 @@ public class AiController {
     // 需要在请求体中添加 {"message": "你好"}
     // 需要在请求体中添加 {"message": "你好", "stream": true}
     @GetMapping(value = "/ai/chat/stream", produces = "text/event-stream;charset=utf-8")
-    public Flux<ChatResponse> chatStream(@RequestParam("message") String message) {
+    public Flux<String> chatStream(@RequestParam("message") String message) {
         return chatClient.prompt()
                 .user(message)
-                .stream().chatResponse();
+                .stream().content();
     }
 
     // deepseek-r1:8b does not support tools
     // Methods as Tools
-    @GetMapping(value = "/ai/chat/tools", produces = "text/event-stream;charset=utf-8")
+    @GetMapping(value = "/ai/chat/tools")
     public String chatTools(@RequestParam("message") String message) {
         return chatClient.prompt(message)
                 .tools(new DateTimeTools())
@@ -45,14 +45,14 @@ public class AiController {
     }
 
     // Functions as Tools
-    @GetMapping(value = "/ai/chat/func", produces = "text/event-stream;charset=utf-8")
+    @GetMapping(value = "/ai/chat/func")
     public String chatFunc(@RequestParam("message") String message) {
         return chatClient.prompt(message)
                 .tools(toolCallback)
                 .call().content();
     }
     // Functions as Tools
-    @GetMapping(value = "/ai/chat/func/bean", produces = "text/event-stream;charset=utf-8")
+    @GetMapping(value = "/ai/chat/func/bean")
     public String chatFuncBean(@RequestParam("message") String message) {
         return chatClient.prompt(message)
                 .tools("currentWeather")

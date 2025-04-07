@@ -9,30 +9,26 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.qianshe</groupId>
-    <artifactId>ceremony-server-ai</artifactId>
+    <artifactId>ceremony-server-mcp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ceremony-server-ai</name>
-    <description>AI服务，使用Spring AI和MCP能力调用本地Ollama模型</description>
+    <name>ceremony-server-mcp</name>
+    <description>ceremony-server-mcp</description>
+
     <properties>
         <java.version>17</java.version>
         <spring-ai.version>1.0.0-M6</spring-ai.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <version>3.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-ollama-spring-boot-starter</artifactId>
+            <artifactId>spring-ai-mcp-client-spring-boot-starter</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <scope>runtime</scope>
-        </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -42,10 +38,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-mcp-server-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
@@ -64,6 +56,18 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -77,4 +81,5 @@
             </plugin>
         </plugins>
     </build>
-</project> 
+
+</project>
