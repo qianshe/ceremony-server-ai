@@ -6,7 +6,7 @@
         "-Dspring.ai.mcp.server.stdio=true",
         "-Dspring.main.web-application-type=none",
         "-jar",
-        "mcp server正确的路径 ../mcp-stdio-server-example-0.0.1-SNAPSHOT.jar"
+        "../mcp-stdio-server-example-0.0.1-SNAPSHOT.jar"
       ],
       "env": {}
     }
