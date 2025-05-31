@@ -1,38 +1,32 @@
-HELP.md
+### Maven ###
 target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+### IDE配置 ###
+.idea/
 *.iml
 *.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
+*.iws
 .vscode/
 
-### Application Data ###
+### 编译文件 ###
+*.class
+
+### 日志文件 ###
+*.log
+logs/
+
+### 数据文件 ###
 /data/
 *.db
-*.log
+*.h2.db
+
+### 配置文件 ###
+application-*.yml
+application-*.properties
+
+### 工具文件 ###
+final_review_gate.py
+.cursor/
